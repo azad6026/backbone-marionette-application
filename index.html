@@ -1,3 +1,72 @@
+
+ tree: 1eb2945bcb  marionette-gentle-introduction / index.html 
+David Sulc davidsulc 6 months ago basic model display
+1 contributor
+ file 65 lines (51 sloc) 1.853 kb EditRawBlameHistory Delete
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,8 +90,8 @@
       <p>Here is static content in the web page. You'll notice that it gets replaced by our app as soon as we start it.</p>
     </div>
 
-    <script type="text/template" id="static-template">
-      <p>This is text that was rendered by our Marionette app.</p>
+    <script type="text/template" id="contact-template">
+      <p><%= firstName %> <%= lastName %></p>
     </script>
 
     <script src="./assets/js/vendor/jquery.js"></script>
@@ -38,13 +107,24 @@
         mainRegion: "#main-region"
       });
 
-      ContactManager.StaticView = Marionette.ItemView.extend({
-        template: "#static-template"
+      ContactManager.Contact = Backbone.Model.extend({});
+
+      ContactManager.ContactView = Marionette.ItemView.extend({
+        template: "#contact-template"
       });
 
       ContactManager.on("initialize:after", function(){
-        var staticView = new ContactManager.StaticView();
-        ContactManager.mainRegion.show(staticView);
+        var alice = new ContactManager.Contact({
+          firstName: "Alice",
+          lastName: "Arten",
+          phoneNumber: "555-0184"
+        });
+
+        var aliceView = new ContactManager.ContactView({
+          model: alice
+        });
+
+        ContactManager.mainRegion.show(aliceView);
       });
 
       ContactManager.start();
