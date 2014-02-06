@@ -47,11 +47,11 @@
       ContactManager.ContactItemView = Marionette.ItemView.extend({
         tagName: "li",
         template: "#contact-list-item"
-      }); 
+      });
 
       ContactManager.ContactsView = Marionette.CollectionView.extend({
         tagName: "ul",
-        ItemView: ContactManager.ContactItemView
+        itemView: ContactManager.ContactItemView
       });
 
       ContactManager.on("initialize:after", function(){
@@ -71,14 +71,15 @@
               lastName: "Harold",
               phoneNumber: "657-8624"
             }
-          ]);
+        ]);
 
         var contactsView = new ContactManager.ContactsView({
           collection: contacts
         });
-        ContactManager.mainRegion.show(contactsView);
 
+        ContactManager.mainRegion.show(contactsView);
       });
+
       ContactManager.start();
     </script>
   </body>
